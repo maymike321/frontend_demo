@@ -24,13 +24,16 @@ type Options = {
     features: string[]
 }[]
 
+
+
 export function SalesOptions({
     title,
     description
 }: { title: string, description: string }) {
     const colorMode = useColorModeValue('gray.50', 'gray.700');
     const { isLoading, isError, data } = useQuery(['options'], getOptions);
-    if (isLoading || isError || !data) return <div></div>;
+    if (isError) return <div>Unable to load sales options. Whoops!</div>
+    if (isLoading || !data) return <div></div>;
     const options = data.data as Options;
     return (
         <Box py={12}>
